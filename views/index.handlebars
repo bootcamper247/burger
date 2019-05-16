@@ -1,0 +1,82 @@
+<div class="w3-panel w3-margin w3-orange w3-center">
+    <h1>Eat-da-Burger</h1>
+</div>
+
+<div class="w3-row w3-margin w3-container ">
+    <div class="w3-col s3 ">&nbsp</div>
+    <div class="w3-col s6 w3-container w3-center"></div>
+    <img src="/assets/img/burger.png" style="width:45%;">
+    <div class="w3-col s3 "></div>
+</div>
+
+<div class="w3-row  w3-container">
+    <div class="w3-col s6 w3-container">
+        <ul class="w3-ul">
+            {{#each selectAllQuerydata}}
+            {{#if this.devoured}}
+            {{else}}
+            <li>
+                <p class="w3-display-container colOne">
+                    {{this.id}}. {{this.burger_name}}
+                    <button data-burgerId="{{this.id}}"
+                        class="w3-button w3-brown w3-hover-orange w3-round-xxlarge w3-display-right  btndevour">Devour</button>
+                </p>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+
+    <div class="w3-col s6 w3-center w3-container">
+        <ul class="w3-ul">
+            {{#each selectAllQuerydata}}
+            {{#if this.devoured}}
+            <li>
+                <p>
+                    {{this.id}}. {{this.burger_name}}
+                </p>
+            </li>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</div>
+
+<!-- Pass in data from burgers_controller.js -->
+
+<h2 class="w3-center">Create a Burger</h2>
+
+<div class="w3-row w3-container w3-center">
+    <div class="w3-col s3 ">&nbsp</div>
+    <div class="w3-col s6 w3-center w3-container">
+        <form action="/" method="POST">
+            <div class="w3-container w3-center" style="width:100%">
+                <input type="text" id="burg" name="burgerName" class="w3-input w3-margin w3-border w3-round" required>
+                <button class="w3-button w3-brown w3-hover-orange w3-round-xxlarge" type="submit">
+                    <h4>Add Burger</h4>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="w3-col s3 "></div>
+</div>
+
+<script type="text/javascript">
+
+    $(".btndevour").on("click", function (event) {
+        // Make sure to preventDefault on a submit event.
+        event.preventDefault();
+        var id = $(this).attr("data-burgerId");
+
+        // Send the POST request.
+        $.ajax("/", {
+            type: "PUT",
+            data: { idToUpdate: id }
+        })
+            .then(function () {
+                //console.log("devoured true");
+                //Reload the page to get the updated list
+                location.assign("/");
+            });
+    });
+</script>
