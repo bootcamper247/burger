@@ -4,8 +4,6 @@
 
 ## Node Express Handlebars ORM
 
-### Deployed at -- <>
-
 ### Overview
 
 This application creates a burger logger with MySQL, Node, Express, Handlebars and a homemade ORM (yum!). It follows the requisite MVC design pattern; uses Node and MySQL to query and route data in the app, and uses Handlebars to generate the HTML.
